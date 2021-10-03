@@ -1,6 +1,10 @@
 package com.github.giulioscattolin.time;
 
 class TemporalOffsetDummy implements TemporalOffset {
+    public double toSeconds() {
+        return 0;
+    }
+
     public double toNanoseconds() {
         return 0;
     }

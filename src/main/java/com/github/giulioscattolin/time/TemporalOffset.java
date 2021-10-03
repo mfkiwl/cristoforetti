@@ -1,6 +1,8 @@
 package com.github.giulioscattolin.time;
 
 public interface TemporalOffset {
+    double toSeconds();
+
     double toNanoseconds();
 
     TemporalOffset plus(TemporalOffset other);

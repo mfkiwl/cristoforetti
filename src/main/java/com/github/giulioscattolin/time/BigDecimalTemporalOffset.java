@@ -13,6 +13,10 @@ class BigDecimalTemporalOffset implements TemporalOffset {
         itsNanoseconds = nanoseconds;
     }
 
+    public double toSeconds() {
+        return toNanoseconds() / NANOSECONDS_IN_SECOND;
+    }
+
     public double toNanoseconds() {
         return itsNanoseconds.doubleValue();
     }
