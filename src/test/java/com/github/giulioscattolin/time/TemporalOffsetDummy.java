@@ -9,6 +9,10 @@ class TemporalOffsetDummy implements TemporalOffset {
         return null;
     }
 
+    public TemporalOffset minus(TemporalOffset other) {
+        return null;
+    }
+
     public TemporalOffset plusDays(long days) {
         return null;
     }

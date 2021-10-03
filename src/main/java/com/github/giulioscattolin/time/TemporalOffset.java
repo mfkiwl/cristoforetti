@@ -5,6 +5,8 @@ public interface TemporalOffset {
 
     TemporalOffset plus(TemporalOffset other);
 
+    TemporalOffset minus(TemporalOffset other);
+
     TemporalOffset plusDays(long days);
 
     TemporalOffset minusDays(long days);
