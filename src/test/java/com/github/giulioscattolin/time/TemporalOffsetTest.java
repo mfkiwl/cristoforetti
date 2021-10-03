@@ -31,5 +31,6 @@ public abstract class TemporalOffsetTest {
     @Test
     public void verifyMinusNanoseconds() {
         assertThat(getFactory().getZeroOffset().minusNanoseconds(1).toNanoseconds()).isEqualTo(-1);
+        assertThat(getFactory().getZeroOffset().minusNanoseconds(1E-9).toNanoseconds()).isEqualTo(-1E-9);
     }
 }

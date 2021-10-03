@@ -24,4 +24,8 @@ class TemporalOffsetDummy implements TemporalOffset {
     public TemporalOffset minusNanoseconds(long nanoseconds) {
         return null;
     }
+
+    public TemporalOffset minusNanoseconds(double nanoseconds) {
+        return null;
+    }
 }
