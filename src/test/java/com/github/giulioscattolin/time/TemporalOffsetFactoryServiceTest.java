@@ -18,7 +18,7 @@ public class TemporalOffsetFactoryServiceTest {
 
     private void makeFactoryStub() {
         itsFactoryStub = new TemporalOffsetFactoryStub();
-        itsExpectedZeroOffset = new TemporalOffset() {};
+        itsExpectedZeroOffset = new TemporalOffsetDummy();
         itsFactoryStub.itsZeroOffset = itsExpectedZeroOffset;
     }
 
