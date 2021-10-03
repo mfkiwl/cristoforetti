@@ -8,4 +8,9 @@ class TemporalOffsetDummy implements TemporalOffset {
     public TemporalOffset plusDays(long days) {
         return null;
     }
+
+    @Override
+    public TemporalOffset minusDays(long days) {
+        return null;
+    }
 }

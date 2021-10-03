@@ -16,4 +16,9 @@ public abstract class TemporalOffsetTest {
     public void verifyPlusDays() {
         assertThat(getFactory().getZeroOffset().plusDays(1).toNanoseconds()).isEqualTo(86_400_000_000_000.0);
     }
+
+    @Test
+    public void verifyMinusDays() {
+        assertThat(getFactory().getZeroOffset().minusDays(1).toNanoseconds()).isEqualTo(-86_400_000_000_000.0);
+    }
 }
