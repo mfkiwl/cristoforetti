@@ -8,4 +8,6 @@ public interface TemporalOffset {
     TemporalOffset minusDays(long days);
 
     TemporalOffset plusNanoseconds(long nanoseconds);
+
+    TemporalOffset minusNanoseconds(long nanoseconds);
 }
