@@ -3,6 +3,7 @@ package com.github.giulioscattolin.time;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertEquals;
 
 public class TemporalOffsetFactoryServiceTest {
@@ -30,6 +31,6 @@ public class TemporalOffsetFactoryServiceTest {
     public void verifyServiceUsesInjectedFactory() {
         TemporalOffsetFactoryService.inject(itsFactoryStub);
 
-        assertEquals(itsExpectedZeroOffset, TemporalOffsetFactoryService.getZeroOffset());
+        assertThat(TemporalOffsetFactoryService.getZeroOffset()).isEqualTo(itsExpectedZeroOffset);
     }
 }
