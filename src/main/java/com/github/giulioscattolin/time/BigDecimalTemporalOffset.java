@@ -13,6 +13,11 @@ class BigDecimalTemporalOffset implements TemporalOffset {
         return itsNanoseconds.doubleValue();
     }
 
+    public TemporalOffset plus(TemporalOffset temporalOffset) {
+        BigDecimalTemporalOffset other = (BigDecimalTemporalOffset) temporalOffset;
+        return new BigDecimalTemporalOffset(itsNanoseconds.add(other.itsNanoseconds));
+    }
+
     public TemporalOffset plusDays(long days) {
         long hours = 24 * days;
         long minutes = 60 * hours;

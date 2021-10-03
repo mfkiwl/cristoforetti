@@ -5,6 +5,10 @@ class TemporalOffsetDummy implements TemporalOffset {
         return 0;
     }
 
+    public TemporalOffset plus(TemporalOffset temporalOffset) {
+        return null;
+    }
+
     public TemporalOffset plusDays(long days) {
         return null;
     }

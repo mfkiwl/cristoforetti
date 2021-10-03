@@ -3,6 +3,8 @@ package com.github.giulioscattolin.time;
 public interface TemporalOffset {
     double toNanoseconds();
 
+    TemporalOffset plus(TemporalOffset other);
+
     TemporalOffset plusDays(long days);
 
     TemporalOffset minusDays(long days);

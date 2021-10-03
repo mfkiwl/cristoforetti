@@ -13,6 +13,33 @@ public abstract class TemporalOffsetTest {
     }
 
     @Test
+    public void verifyPlusOtherTemporalOffset() {
+        verifyPlusOtherTemporalOffset(0, 456, 0, 0, 0, 456);
+        verifyPlusOtherTemporalOffset(0, 123, 2, 456, 2, 579);
+    }
+
+    private void verifyPlusOtherTemporalOffset(long a, long b, long c, long d, long e, long f) {
+        assertThat(
+            getFactory()
+                .getZeroOffset()
+                .plusDays(a)
+                .plusNanoseconds(b)
+                .plus(
+                    getFactory()
+                        .getZeroOffset()
+                        .plusDays(c)
+                        .plusNanoseconds(d))
+                .toNanoseconds()
+        ).isEqualTo(
+            getFactory()
+                .getZeroOffset()
+                .plusDays(e)
+                .plusNanoseconds(f)
+                .toNanoseconds()
+        );
+    }
+
+    @Test
     public void verifyPlusDays() {
         assertThat(getFactory().getZeroOffset().plusDays(1).toNanoseconds()).isEqualTo(86_400_000_000_000.0);
     }
