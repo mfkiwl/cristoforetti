@@ -11,6 +11,12 @@ public interface TemporalOffset {
 
     TemporalOffset minusDays(long days);
 
+    TemporalOffset plusHours(long hours);
+
+    TemporalOffset plusMinutes(long minutes);
+
+    TemporalOffset plusSeconds(long seconds);
+
     TemporalOffset plusNanoseconds(long nanoseconds);
 
     TemporalOffset plusNanoseconds(double nanoseconds);

@@ -3,6 +3,10 @@ package com.github.giulioscattolin.time;
 import java.math.BigDecimal;
 
 class BigDecimalTemporalOffset implements TemporalOffset {
+    public static final long NANOSECONDS_IN_SECOND = 1_000_000_000L;
+    public static final int SECONDS_IN_MINUTES = 60;
+    public static final int MINUTES_IN_HOUR = 60;
+    public static final int HOURS_IN_DAY = 24;
     private final BigDecimal itsNanoseconds;
 
     BigDecimalTemporalOffset(BigDecimal nanoseconds) {
@@ -24,15 +28,23 @@ class BigDecimalTemporalOffset implements TemporalOffset {
     }
 
     public TemporalOffset plusDays(long days) {
-        long hours = 24 * days;
-        long minutes = 60 * hours;
-        long seconds = 60 * minutes;
-        long nanoseconds = 1_000_000_000L * seconds;
-        return plusNanoseconds(nanoseconds);
+        return plusHours(HOURS_IN_DAY * days);
     }
 
     public TemporalOffset minusDays(long days) {
         return plusDays(-days);
+    }
+
+    public TemporalOffset plusHours(long hours) {
+        return plusMinutes(MINUTES_IN_HOUR * hours);
+    }
+
+    public TemporalOffset plusMinutes(long minutes) {
+        return plusSeconds(SECONDS_IN_MINUTES * minutes);
+    }
+
+    public TemporalOffset plusSeconds(long seconds) {
+        return plusNanoseconds(NANOSECONDS_IN_SECOND * seconds);
     }
 
     public TemporalOffset plusNanoseconds(long nanoseconds) {
