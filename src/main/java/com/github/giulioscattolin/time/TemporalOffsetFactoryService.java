@@ -3,7 +3,7 @@ package com.github.giulioscattolin.time;
 public class TemporalOffsetFactoryService {
     private static TemporalOffsetFactory itsFactory;
 
-    TemporalOffsetFactoryService() {
+    static {
         reset();
     }
 
