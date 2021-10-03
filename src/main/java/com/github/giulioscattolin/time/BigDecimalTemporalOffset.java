@@ -24,4 +24,8 @@ class BigDecimalTemporalOffset implements TemporalOffset {
     public TemporalOffset minusDays(long days) {
         return plusDays(-days);
     }
+
+    public TemporalOffset plusNanoseconds(long nanoseconds) {
+        return new BigDecimalTemporalOffset(itsNanoseconds.add(new BigDecimal(nanoseconds)));
+    }
 }
