@@ -87,4 +87,17 @@ public abstract class TemporalOffsetTest {
         assertThat(getFactory().getZeroOffset().minusNanoseconds(1).toNanoseconds()).isEqualTo(-1);
         assertThat(getFactory().getZeroOffset().minusNanoseconds(1E-9).toNanoseconds()).isEqualTo(-1E-9);
     }
+
+    @Test
+    public void verifySubNanosArePreservedEvenAcrossMultipleYearsOffset() {
+        int daysInYear = 365;
+        TemporalOffset twoHundredYears =
+            getFactory()
+                .getZeroOffset()
+                .plusDays(daysInYear * 200);
+        double littleMore = 1E-9;
+        TemporalOffset littleMoreThanTwoHundredYears = twoHundredYears.plusNanoseconds(littleMore);
+
+        assertThat(littleMoreThanTwoHundredYears.minus(twoHundredYears).toNanoseconds()).isEqualTo(littleMore);
+    }
 }
