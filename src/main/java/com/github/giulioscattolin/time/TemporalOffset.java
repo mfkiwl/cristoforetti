@@ -9,5 +9,7 @@ public interface TemporalOffset {
 
     TemporalOffset plusNanoseconds(long nanoseconds);
 
+    TemporalOffset plusNanoseconds(double nanoseconds);
+
     TemporalOffset minusNanoseconds(long nanoseconds);
 }
