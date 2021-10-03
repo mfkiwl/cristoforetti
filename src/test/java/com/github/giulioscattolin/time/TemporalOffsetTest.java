@@ -100,4 +100,23 @@ public abstract class TemporalOffsetTest {
 
         assertThat(littleMoreThanTwoHundredYears.minus(twoHundredYears).toNanoseconds()).isEqualTo(littleMore);
     }
+
+    @Test
+    public void verifyRemSeconds() {
+        testRemSeconds(1_000_000_000, 0, 1, 0, 0);
+        testRemSeconds(1_000_000_001, 0, 1, 1, 0);
+        testRemSeconds(2_000_000_000, 0, 1, 0, 0);
+        testRemSeconds(2_000_000_001, 0, 1, 1, 0);
+        testRemSeconds(1_000_000_000, 1E-15, 1, 0, 1E-15);
+        testRemSeconds(1_000_000_001, 1E-15, 1, 1, 1E-15);
+        testRemSeconds(2_000_000_000, 1E-15, 1, 0, 1E-15);
+        testRemSeconds(2_000_000_001, 1E-15, 1, 1, 1E-15);
+    }
+
+    private void testRemSeconds(int a, double b, int seconds, long c, double d) {
+        TemporalOffset base = getFactory().getZeroOffset().plusNanoseconds(a).plusNanoseconds(b);
+        TemporalOffset actual = base.remSeconds(seconds);
+        TemporalOffset expected = getFactory().getZeroOffset().plusNanoseconds(c).plusNanoseconds(d);
+        assertThat(actual.toNanoseconds()).isEqualTo(expected.toNanoseconds());
+    }
 }

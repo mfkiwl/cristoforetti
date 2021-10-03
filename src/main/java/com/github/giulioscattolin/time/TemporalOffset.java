@@ -24,4 +24,6 @@ public interface TemporalOffset {
     TemporalOffset minusNanoseconds(long nanoseconds);
 
     TemporalOffset minusNanoseconds(double nanoseconds);
+
+    TemporalOffset remSeconds(long seconds);
 }
