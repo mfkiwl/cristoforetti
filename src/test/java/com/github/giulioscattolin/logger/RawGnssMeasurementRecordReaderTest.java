@@ -4,14 +4,14 @@ import org.junit.Test;
 
 import static com.google.common.truth.Truth.assertThat;
 
-public class RawGnssMeasurementRecordParserTest {
+public class RawGnssMeasurementRecordReaderTest {
     RawGnssMeasurementRecord itsRecord;
 
     @Test
     public void verifyExpectedResult() {
         String line = "Raw,189362621,147710246000000,18,,-1292032448199080441,-0.6313767433166504,131.93707854952663,5.41916040414302,13.162864206221524,55,2,0.0,16399,327358369549839,6,43.4,-53.141605377197266,0.0333000011742115,16,-0.0,1902.9177342976868,1.57542003E9,,,,0,,1,0.56,1.57542003E9";
 
-        itsRecord = RawGnssMeasurementRecordParser.parse(line);
+        itsRecord = RawGnssMeasurementRecordReader.read(line);
 
         assertThat(itsRecord.getElapsedRealtimeMillis()).isEqualTo("189362621");
         assertThat(itsRecord.getTimeNanos()).isEqualTo("147710246000000");
@@ -48,7 +48,7 @@ public class RawGnssMeasurementRecordParserTest {
     public void testIncompleteLine() {
         String line = "Raw,189362621,147710246000000,";
 
-        itsRecord = RawGnssMeasurementRecordParser.parse(line);
+        itsRecord = RawGnssMeasurementRecordReader.read(line);
 
         assertThat(itsRecord.getElapsedRealtimeMillis()).isEqualTo("189362621");
         assertThat(itsRecord.getTimeNanos()).isEqualTo("147710246000000");

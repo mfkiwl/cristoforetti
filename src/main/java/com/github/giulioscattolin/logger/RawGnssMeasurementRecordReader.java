@@ -2,20 +2,20 @@ package com.github.giulioscattolin.logger;
 
 import java.util.function.Consumer;
 
-class RawGnssMeasurementRecordParser {
+class RawGnssMeasurementRecordReader {
     private final String[] itsFields;
 
-    private RawGnssMeasurementRecordParser(String line) {
+    private RawGnssMeasurementRecordReader(String line) {
         itsFields = line.split(",");
     }
 
-    static void parse(String line, Consumer<GnssLoggerRecord> collector) {
+    static void read(String line, Consumer<GnssLoggerRecord> collector) {
         if (line.startsWith("Raw"))
-            collector.accept(parse(line));
+            collector.accept(read(line));
     }
 
-    static RawGnssMeasurementRecord parse(String line) {
-        return new RawGnssMeasurementRecordParser(line).getRecord();
+    static RawGnssMeasurementRecord read(String line) {
+        return new RawGnssMeasurementRecordReader(line).getRecord();
     }
 
     private RawGnssMeasurementRecord getRecord() {

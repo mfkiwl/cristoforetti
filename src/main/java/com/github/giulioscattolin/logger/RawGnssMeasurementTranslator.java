@@ -9,15 +9,15 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 
-class RawGnssMeasurementParser {
+class RawGnssMeasurementTranslator {
     private final RawGnssMeasurementRecord itsRecord;
 
-    private RawGnssMeasurementParser(RawGnssMeasurementRecord record) {
+    private RawGnssMeasurementTranslator(RawGnssMeasurementRecord record) {
         itsRecord = record;
     }
 
-    static RawGnssMeasurement parse(RawGnssMeasurementRecord record) {
-        return new RawGnssMeasurementParser(record).getMeasurement();
+    static RawGnssMeasurement translate(RawGnssMeasurementRecord record) {
+        return new RawGnssMeasurementTranslator(record).getMeasurement();
     }
 
     private RawGnssMeasurement getMeasurement() {

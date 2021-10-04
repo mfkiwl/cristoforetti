@@ -26,7 +26,7 @@ class InputStreamAsGnssLoggerRecordIterator implements Iterator<GnssLoggerRecord
     }
 
     private void parseLine(String line) {
-        RawGnssMeasurementRecordParser.parse(line, itsBuffer::add);
+        RawGnssMeasurementRecordReader.read(line, itsBuffer::add);
     }
 
     public GnssLoggerRecord next() {

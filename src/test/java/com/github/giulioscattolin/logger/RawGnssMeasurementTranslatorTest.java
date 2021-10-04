@@ -3,9 +3,11 @@ package com.github.giulioscattolin.logger;
 import com.github.giulioscattolin.measurement.RawGnssMeasurement;
 import org.junit.Test;
 
+import static com.github.giulioscattolin.logger.RawGnssMeasurementRecordReader.read;
+import static com.github.giulioscattolin.logger.RawGnssMeasurementTranslator.translate;
 import static com.google.common.truth.Truth.assertThat;
 
-public class RawGnssMeasurementParserTest {
+public class RawGnssMeasurementTranslatorTest {
     RawGnssMeasurement itsRawGnssMeasurement;
 
     @Test
@@ -28,8 +30,6 @@ public class RawGnssMeasurementParserTest {
     }
 
     private void parse(String line) {
-        itsRawGnssMeasurement =
-            RawGnssMeasurementParser.parse(
-                RawGnssMeasurementRecordParser.parse(line));
+        itsRawGnssMeasurement = translate(read(line));
     }
 }

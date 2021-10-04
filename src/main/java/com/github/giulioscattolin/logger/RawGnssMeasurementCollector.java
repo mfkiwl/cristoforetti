@@ -4,6 +4,8 @@ import com.github.giulioscattolin.data.Data;
 
 import java.util.function.Consumer;
 
+import static com.github.giulioscattolin.logger.RawGnssMeasurementTranslator.translate;
+
 class RawGnssMeasurementCollector extends GnssLoggerRecordVisitor {
     private final Consumer<Data> itsDataCollector;
 
@@ -12,6 +14,6 @@ class RawGnssMeasurementCollector extends GnssLoggerRecordVisitor {
     }
 
     void visit(RawGnssMeasurementRecord rawGnssMeasurementRecord) {
-        itsDataCollector.accept(RawGnssMeasurementParser.parse(rawGnssMeasurementRecord));
+        itsDataCollector.accept(translate(rawGnssMeasurementRecord));
     }
 }
