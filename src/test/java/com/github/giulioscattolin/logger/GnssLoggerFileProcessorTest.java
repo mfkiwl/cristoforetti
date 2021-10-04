@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import static com.github.giulioscattolin.TestHelper.asDataFile;
 import static com.google.common.truth.Truth.assertThat;
 
 public class GnssLoggerFileProcessorTest implements IterableDataVisitor, DataCollector, RawGnssMeasurementVisitor {
@@ -27,7 +28,7 @@ public class GnssLoggerFileProcessorTest implements IterableDataVisitor, DataCol
 
     @Test
     public void verifyDataCollection() {
-        itsProcessor.process(getDataFile("gnss_log_2021_04_25_12_18_31.txt"));
+        itsProcessor.process(asDataFile("gnss_log_2021_04_25_12_18_31.txt"));
 
         // Verify data collection size
         assertThat(itsDataCollection).hasSize(51);
@@ -38,10 +39,6 @@ public class GnssLoggerFileProcessorTest implements IterableDataVisitor, DataCol
         // Verify GPS and Galileo measurements size
         assertThat(itsGpsRawGnssMeasurements).hasSize(12);
         assertThat(itsGalileoRawGnssMeasurements).hasSize(15);
-    }
-
-    private DataFile getDataFile(String name) {
-        return new DataFile(getClass().getClassLoader().getResource(name).getFile());
     }
 
     public void visit(IterableData iterableData) {
