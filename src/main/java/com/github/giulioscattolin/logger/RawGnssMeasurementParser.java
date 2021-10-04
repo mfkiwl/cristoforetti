@@ -1,5 +1,6 @@
 package com.github.giulioscattolin.logger;
 
+import com.github.giulioscattolin.measurement.ImmutableRawGnssMeasurement;
 import com.github.giulioscattolin.measurement.RawGnssMeasurement;
 
 import java.util.function.Consumer;
