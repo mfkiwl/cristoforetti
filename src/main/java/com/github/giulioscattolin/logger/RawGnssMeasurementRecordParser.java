@@ -1,10 +1,17 @@
 package com.github.giulioscattolin.logger;
 
+import java.util.function.Consumer;
+
 class RawGnssMeasurementRecordParser {
     private final String[] itsFields;
 
     private RawGnssMeasurementRecordParser(String line) {
         itsFields = line.split(",");
+    }
+
+    static void parse(String line, Consumer<GnssLoggerRecord> collector) {
+        if (line.startsWith("Raw"))
+            collector.accept(parse(line));
     }
 
     static RawGnssMeasurementRecord parse(String line) {

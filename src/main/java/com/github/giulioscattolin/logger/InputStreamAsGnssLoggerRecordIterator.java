@@ -10,7 +10,6 @@ import static com.github.giulioscattolin.iterator.InputStreamAsLineIterator.asLi
 class InputStreamAsGnssLoggerRecordIterator implements Iterator<GnssLoggerRecord> {
     private final Iterator<String> itsLineIterator;
     private final Queue<GnssLoggerRecord> itsBuffer = new LinkedList<>();
-    private final RawGnssMeasurementRecordCollector itsRawGnssMeasurementRecordCollector = new RawGnssMeasurementRecordCollector(itsBuffer::add);
 
     public InputStreamAsGnssLoggerRecordIterator(InputStream inputStream) {
         itsLineIterator = asLineIterator(inputStream);
@@ -27,7 +26,7 @@ class InputStreamAsGnssLoggerRecordIterator implements Iterator<GnssLoggerRecord
     }
 
     private void parseLine(String line) {
-        itsRawGnssMeasurementRecordCollector.accept(line);
+        RawGnssMeasurementRecordParser.parse(line, itsBuffer::add);
     }
 
     public GnssLoggerRecord next() {
