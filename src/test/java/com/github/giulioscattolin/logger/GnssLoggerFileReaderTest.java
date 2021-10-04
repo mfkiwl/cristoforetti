@@ -1,8 +1,6 @@
 package com.github.giulioscattolin.logger;
 
-import com.github.giulioscattolin.data.Data;
-import com.github.giulioscattolin.data.DataFile;
-import com.github.giulioscattolin.data.IterableData;
+import com.github.giulioscattolin.data.*;
 import com.github.giulioscattolin.measurement.RawGnssMeasurement;
 import com.github.giulioscattolin.measurement.RawGnssMeasurementVisitor;
 import org.junit.Before;
@@ -13,9 +11,8 @@ import java.util.LinkedList;
 
 import static com.google.common.truth.Truth.assertThat;
 
-public class GnssLoggerFileReaderTest {
-    GnssLoggerFileReader itsReader;
-    IterableData itsDataIterable;
+public class GnssLoggerFileReaderTest implements IterableDataVisitor, RawGnssMeasurementVisitor {
+    DataReader itsReader;
     Collection<Data> itsDataCollection;
     Collection<RawGnssMeasurement> itsGpsRawGnssMeasurements;
     Collection<RawGnssMeasurement> itsGalileoRawGnssMeasurements;
@@ -30,28 +27,15 @@ public class GnssLoggerFileReaderTest {
 
     @Test
     public void verifyDataCollection() {
-        itsDataIterable = (IterableData) itsReader.read(getDataFile("gnss_log_2021_04_25_12_18_31.txt"));
-        itsDataIterable.forEach(itsDataCollection::add);
+        itsReader.read(
+            getDataFile("gnss_log_2021_04_25_12_18_31.txt"),
+            (data) -> data.accept(this));
 
         // Verify data collection size
         assertThat(itsDataCollection).hasSize(51);
 
         // Collect GPS and Galileo measurements
-        class Visitor implements RawGnssMeasurementVisitor {
-            public void visit(RawGnssMeasurement rawGnssMeasurement) {
-                if (rawGnssMeasurement.hasConstellationType())
-                    switch (rawGnssMeasurement.getConstellationType()) {
-                        case RawGnssMeasurement.ConstellationType.GPS:
-                            itsGpsRawGnssMeasurements.add(rawGnssMeasurement);
-                            break;
-                        case RawGnssMeasurement.ConstellationType.GALILEO:
-                            itsGalileoRawGnssMeasurements.add(rawGnssMeasurement);
-                            break;
-                    }
-            }
-        }
-        Visitor visitor = new Visitor();
-        itsDataCollection.forEach((data) -> data.accept(visitor));
+        itsDataCollection.forEach((data) -> data.accept(this));
 
         // Verify GPS and Galileo measurements size
         assertThat(itsGpsRawGnssMeasurements).hasSize(12);
@@ -60,5 +44,21 @@ public class GnssLoggerFileReaderTest {
 
     private DataFile getDataFile(String name) {
         return new DataFile(getClass().getClassLoader().getResource(name).getFile());
+    }
+
+    public void visit(IterableData iterableData) {
+        iterableData.forEach(itsDataCollection::add);
+    }
+
+    public void visit(RawGnssMeasurement rawGnssMeasurement) {
+        if (rawGnssMeasurement.hasConstellationType())
+            switch (rawGnssMeasurement.getConstellationType()) {
+                case RawGnssMeasurement.ConstellationType.GPS:
+                    itsGpsRawGnssMeasurements.add(rawGnssMeasurement);
+                    break;
+                case RawGnssMeasurement.ConstellationType.GALILEO:
+                    itsGalileoRawGnssMeasurements.add(rawGnssMeasurement);
+                    break;
+            }
     }
 }

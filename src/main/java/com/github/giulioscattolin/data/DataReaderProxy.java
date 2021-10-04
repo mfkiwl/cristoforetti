@@ -1,8 +1,8 @@
 package com.github.giulioscattolin.data;
 
 abstract class DataReaderProxy implements DataReader {
-    public Data read(DataSource source) {
-        return getReader().read(source);
+    public void read(DataSource source, DataCollector collector) {
+        getReader().read(source, collector);
     }
 
     protected abstract DataReader getReader();

@@ -6,4 +6,8 @@ class UndefinedDataReader implements DataReader {
     public Data read(DataSource source) {
         throw new IllegalStateException(MESSAGE);
     }
+
+    public void read(DataSource source, DataCollector collector) {
+        throw new IllegalStateException(MESSAGE);
+    }
 }

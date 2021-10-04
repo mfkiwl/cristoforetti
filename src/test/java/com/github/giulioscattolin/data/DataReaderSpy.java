@@ -10,9 +10,9 @@ class DataReaderSpy implements DataReader {
         itsData = data;
     }
 
-    public Data read(DataSource source) {
+    public void read(DataSource source, DataCollector collector) {
         itsSource = source;
-        return itsData;
+        collector.accept(itsData);
     }
 
     void verifySourceIsEqualTo(DataSource expected) {

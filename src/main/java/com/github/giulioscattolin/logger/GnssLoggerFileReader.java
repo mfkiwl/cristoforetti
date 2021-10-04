@@ -1,9 +1,6 @@
 package com.github.giulioscattolin.logger;
 
-import com.github.giulioscattolin.data.Data;
-import com.github.giulioscattolin.data.DataFile;
-import com.github.giulioscattolin.data.DataReader;
-import com.github.giulioscattolin.data.DataSource;
+import com.github.giulioscattolin.data.*;
 
 public class GnssLoggerFileReader implements DataReader {
     public Data read(DataSource source) {
@@ -13,11 +10,21 @@ public class GnssLoggerFileReader implements DataReader {
             return null;
     }
 
+    public void read(DataSource source, DataCollector collector) {
+        if (source instanceof DataFile)
+            read((DataFile) source, collector);
+    }
+
     protected Data read(DataFile dataFile) {
         if (isGnssLoggerPlainFile(dataFile))
             return new FileAsData(dataFile);
         else
             return null;
+    }
+
+    private void read(DataFile dataFile, DataCollector collector) {
+        if (isGnssLoggerPlainFile(dataFile))
+            collector.accept(new FileAsData(dataFile));
     }
 
     private boolean isGnssLoggerPlainFile(DataFile dataFile) {
