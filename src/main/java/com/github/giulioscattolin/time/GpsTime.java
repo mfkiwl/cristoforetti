@@ -7,6 +7,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class GpsTime {
     private static final int SECONDS_IN_WEEK = 604800;
     private static final LocalDate EPOCH = LocalDate.of(1980, 1, 6);
+    private static final TemporalOffsetFactory TEMPORAL_OFFSET_FACTORY = new TemporalOffsetFactoryService();
 
     public static TemporalOffset asTemporalOffset(int year, int month, int dayOfMonth, int hour, int minute, int second) {
         return
@@ -18,7 +19,7 @@ public class GpsTime {
 
     public static TemporalOffset asTemporalOffset(int year, int month, int dayOfMonth) {
         return
-            TemporalOffsetFactoryService
+            TEMPORAL_OFFSET_FACTORY
                 .getZeroOffset()
                 .plusDays(getDaysSinceEpoch(year, month, dayOfMonth));
     }

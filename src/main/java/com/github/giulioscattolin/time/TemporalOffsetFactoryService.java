@@ -1,6 +1,6 @@
 package com.github.giulioscattolin.time;
 
-public class TemporalOffsetFactoryService {
+public class TemporalOffsetFactoryService extends TemporalOffsetFactoryProxy {
     private static TemporalOffsetFactory itsFactory;
 
     static {
@@ -11,8 +11,8 @@ public class TemporalOffsetFactoryService {
         itsFactory = factory;
     }
 
-    public static TemporalOffset getZeroOffset() {
-        return itsFactory.getZeroOffset();
+    protected TemporalOffsetFactory getTemporalOffsetFactory() {
+        return itsFactory;
     }
 
     static void reset() {

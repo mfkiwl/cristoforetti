@@ -24,13 +24,13 @@ public class TemporalOffsetFactoryServiceTest {
 
     @Test(expected = IllegalStateException.class)
     public void verifyUndefinedFactoryBehavior() {
-        TemporalOffsetFactoryService.getZeroOffset();
+        new TemporalOffsetFactoryService().getZeroOffset();
     }
 
     @Test
     public void verifyServiceUsesInjectedFactory() {
         TemporalOffsetFactoryService.inject(itsFactoryStub);
 
-        assertThat(TemporalOffsetFactoryService.getZeroOffset()).isEqualTo(itsExpectedZeroOffset);
+        assertThat(new TemporalOffsetFactoryService().getZeroOffset()).isEqualTo(itsExpectedZeroOffset);
     }
 }
