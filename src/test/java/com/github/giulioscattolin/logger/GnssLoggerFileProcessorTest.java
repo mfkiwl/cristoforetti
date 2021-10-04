@@ -11,25 +11,23 @@ import java.util.LinkedList;
 
 import static com.google.common.truth.Truth.assertThat;
 
-public class GnssLoggerFileReaderTest implements IterableDataVisitor, RawGnssMeasurementVisitor {
-    DataReader itsReader;
+public class GnssLoggerFileProcessorTest implements IterableDataVisitor, DataCollector, RawGnssMeasurementVisitor {
+    DataProcessor itsProcessor;
     Collection<Data> itsDataCollection;
     Collection<RawGnssMeasurement> itsGpsRawGnssMeasurements;
     Collection<RawGnssMeasurement> itsGalileoRawGnssMeasurements;
 
     @Before
     public void clear() {
-        itsReader = new GnssLoggerFileReader();
         itsDataCollection = new LinkedList<>();
+        itsProcessor = new GnssLoggerFileProcessor(this);
         itsGpsRawGnssMeasurements = new LinkedList<>();
         itsGalileoRawGnssMeasurements = new LinkedList<>();
     }
 
     @Test
     public void verifyDataCollection() {
-        itsReader.read(
-            getDataFile("gnss_log_2021_04_25_12_18_31.txt"),
-            (data) -> data.accept(this));
+        itsProcessor.process(getDataFile("gnss_log_2021_04_25_12_18_31.txt"));
 
         // Verify data collection size
         assertThat(itsDataCollection).hasSize(51);
@@ -60,5 +58,9 @@ public class GnssLoggerFileReaderTest implements IterableDataVisitor, RawGnssMea
                     itsGalileoRawGnssMeasurements.add(rawGnssMeasurement);
                     break;
             }
+    }
+
+    public void accept(Data data) {
+        data.accept(this);
     }
 }

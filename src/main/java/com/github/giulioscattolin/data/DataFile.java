@@ -3,7 +3,7 @@ package com.github.giulioscattolin.data;
 import java.io.File;
 import java.net.URI;
 
-public class DataFile extends File implements DataSource {
+public class DataFile extends File implements Data {
     public DataFile(String pathname) {
         super(pathname);
     }
@@ -20,7 +20,7 @@ public class DataFile extends File implements DataSource {
         super(uri);
     }
 
-    public void accept(DataSourceVisitor visitor) {
+    public void accept(DataVisitor visitor) {
         if (visitor instanceof DataFileVisitor)
             ((DataFileVisitor) visitor).visit(this);
     }

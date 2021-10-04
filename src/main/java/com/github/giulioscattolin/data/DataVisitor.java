@@ -1,4 +1,4 @@
-    package com.github.giulioscattolin.data;
+package com.github.giulioscattolin.data;
 
 public interface DataVisitor {
 }
