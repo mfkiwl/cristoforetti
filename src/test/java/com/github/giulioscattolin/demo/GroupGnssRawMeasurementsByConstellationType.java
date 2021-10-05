@@ -31,8 +31,8 @@ public class GroupGnssRawMeasurementsByConstellationType {
     public void verifyDataCollection() {
         itsProcessor.process(asDataFile("gnss_log_2021_04_25_12_18_31.txt"));
 
-        // Verify GPS and Galileo measurements size
         Map<Integer, Collection<RawGnssMeasurement>> measurementsByConstellationType = itsCollector.getMeasurementsByConstellationType();
+
         assertThat(measurementsByConstellationType.get(ConstellationType.GALILEO)).hasSize(15);
         assertThat(measurementsByConstellationType.get(ConstellationType.GPS)).hasSize(12);
         assertThat(measurementsByConstellationType.get(ConstellationType.BEIDOU)).hasSize(12);
