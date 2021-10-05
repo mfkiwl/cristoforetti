@@ -1,14 +1,15 @@
 package com.github.giulioscattolin.logger;
 
+import com.github.giulioscattolin.iterator.CloseableIterator;
+
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import static com.github.giulioscattolin.iterator.InputStreamAsLineIterator.asLineIterator;
 
-class InputStreamAsGnssLoggerRecordIterator implements Iterator<GnssLoggerRecord> {
-    private final Iterator<String> itsLineIterator;
+class InputStreamAsGnssLoggerRecordIterator implements CloseableIterator<GnssLoggerRecord> {
+    private final CloseableIterator<String> itsLineIterator;
     private final Queue<GnssLoggerRecord> itsBuffer = new LinkedList<>();
 
     public InputStreamAsGnssLoggerRecordIterator(InputStream inputStream) {
@@ -31,5 +32,9 @@ class InputStreamAsGnssLoggerRecordIterator implements Iterator<GnssLoggerRecord
 
     public GnssLoggerRecord next() {
         return itsBuffer.remove();
+    }
+
+    public void close() throws Exception {
+        itsLineIterator.close();
     }
 }

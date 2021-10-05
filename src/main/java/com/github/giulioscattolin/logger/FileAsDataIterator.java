@@ -1,38 +1,19 @@
 package com.github.giulioscattolin.logger;
 
 import com.github.giulioscattolin.data.Data;
-import com.github.giulioscattolin.data.DataFile;
+import com.github.giulioscattolin.iterator.CloseableIterator;
+import com.github.giulioscattolin.iterator.EmptyCloseableIterator;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Iterator;
 
-import static java.util.Collections.emptyIterator;
-
-class FileAsDataIterator implements Iterator<Data> {
-    private final Iterator<Data> itsIterator;
-
-    FileAsDataIterator(DataFile dataFile) {
-        itsIterator = getIterator(dataFile);
-    }
-
-    private Iterator<Data> getIterator(DataFile dataFile) {
+class FileAsDataIterator {
+    public static CloseableIterator<Data> from(File file) {
         try {
-            return tryGetIterator(dataFile);
+            return InputStreamAsDataIterator.from(new FileInputStream(file));
         } catch (IOException ioException) {
-            return emptyIterator();
+            return new EmptyCloseableIterator<>();
         }
-    }
-
-    private Iterator<Data> tryGetIterator(DataFile dataFile) throws IOException {
-        return new InputStreamAsDataIterator(new FileInputStream(dataFile));
-    }
-
-    public boolean hasNext() {
-        return itsIterator.hasNext();
-    }
-
-    public Data next() {
-        return itsIterator.next();
     }
 }

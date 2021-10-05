@@ -1,24 +1,14 @@
 package com.github.giulioscattolin.logger;
 
 import com.github.giulioscattolin.data.Data;
+import com.github.giulioscattolin.iterator.CloseableIterator;
 
 import java.io.InputStream;
-import java.util.Iterator;
 
-class InputStreamAsDataIterator implements Iterator<Data> {
-    private final Iterator<Data> itsIterator;
-
-    public InputStreamAsDataIterator(InputStream inputStream) {
-        itsIterator =
+class InputStreamAsDataIterator {
+    public static CloseableIterator<Data> from(InputStream inputStream) {
+        return
             new GnssLoggerRecordIteratorAsDataIterator(
                 new InputStreamAsGnssLoggerRecordIterator(inputStream));
-    }
-
-    public boolean hasNext() {
-        return itsIterator.hasNext();
-    }
-
-    public Data next() {
-        return itsIterator.next();
     }
 }

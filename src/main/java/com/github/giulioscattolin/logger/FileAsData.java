@@ -14,6 +14,6 @@ class FileAsData extends IterableData {
     }
 
     public Iterator<Data> iterator() {
-        return new FileAsDataIterator(itsDataFile);
+        return FileAsDataIterator.from(itsDataFile);
     }
 }
