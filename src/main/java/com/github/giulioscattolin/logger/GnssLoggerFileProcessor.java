@@ -3,10 +3,10 @@ package com.github.giulioscattolin.logger;
 import com.github.giulioscattolin.data.*;
 
 public class GnssLoggerFileProcessor implements DataProcessor, DataFileVisitor {
-    private final DataCollector itsCollector;
+    private final DataProcessor itsNextProcessor;
 
-    public GnssLoggerFileProcessor(DataCollector collector) {
-        itsCollector = collector;
+    public GnssLoggerFileProcessor(DataProcessor collector) {
+        itsNextProcessor = collector;
     }
 
     public void process(Data data) {
@@ -16,7 +16,7 @@ public class GnssLoggerFileProcessor implements DataProcessor, DataFileVisitor {
     public void visit(DataFile dataFile) {
         if (dataFile.getName().startsWith("gnss_log") && dataFile.isFile())
             if (dataFile.getName().endsWith(".txt"))
-                itsCollector.accept(new FileAsData(dataFile));
+                itsNextProcessor.process(new FileAsData(dataFile));
     }
 }
 

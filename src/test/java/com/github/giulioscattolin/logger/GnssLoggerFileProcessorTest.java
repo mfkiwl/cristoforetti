@@ -34,11 +34,11 @@ public class GnssLoggerFileProcessorTest {
     }
 
     private class Collector implements
-        DataCollector,
+        DataProcessor,
         EagerIterableDataVisitor,
         RawGnssMeasurementVisitor {
 
-        public void accept(Data data) {
+        public void process(Data data) {
             data.accept(this);
         }
 
