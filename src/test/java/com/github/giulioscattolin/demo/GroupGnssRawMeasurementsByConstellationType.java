@@ -2,16 +2,14 @@ package com.github.giulioscattolin.demo;
 
 import com.github.giulioscattolin.data.*;
 import com.github.giulioscattolin.logger.GnssLoggerFileProcessor;
+import com.github.giulioscattolin.measurement.GroupRawGnssMeasurementsByConstellationTypeEagerly;
 import com.github.giulioscattolin.measurement.RawGnssMeasurement;
 import com.github.giulioscattolin.measurement.RawGnssMeasurement.ConstellationType;
-import com.github.giulioscattolin.measurement.RawGnssMeasurementProcessors;
-import com.github.giulioscattolin.measurement.RawGnssMeasurementVisitor;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 import static com.github.giulioscattolin.TestHelper.asDataFile;
@@ -19,11 +17,11 @@ import static com.google.common.truth.Truth.assertThat;
 
 public class GroupGnssRawMeasurementsByConstellationType {
     DataProcessor itsProcessor;
-    RawGnssMeasurementProcessors.GroupByConstellationTypeEagerly itsCollector;
+    GroupRawGnssMeasurementsByConstellationTypeEagerly itsCollector;
 
     @Before
     public void clear() {
-        itsCollector = new RawGnssMeasurementProcessors.GroupByConstellationTypeEagerly(new HashMap<>());
+        itsCollector = new GroupRawGnssMeasurementsByConstellationTypeEagerly(new HashMap<>());
         itsProcessor = new GnssLoggerFileProcessor(itsCollector);
     }
 
