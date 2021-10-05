@@ -19,16 +19,12 @@ import static com.google.common.truth.Truth.assertThat;
 
 public class GroupGnssRawMeasurementsByConstellationType {
     DataProcessor itsProcessor;
-    Collection<RawGnssMeasurement> itsGpsRawGnssMeasurements;
-    Collection<RawGnssMeasurement> itsGalileoRawGnssMeasurements;
     RawGnssMeasurementProcessors.GroupByConstellationTypeEagerly itsCollector;
 
     @Before
     public void clear() {
         itsCollector = new RawGnssMeasurementProcessors.GroupByConstellationTypeEagerly(new HashMap<>());
         itsProcessor = new GnssLoggerFileProcessor(itsCollector);
-        itsGpsRawGnssMeasurements = new LinkedList<>();
-        itsGalileoRawGnssMeasurements = new LinkedList<>();
     }
 
     @Test
